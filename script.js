@@ -16,6 +16,34 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 
 const randomNumber = (min, max) =>  Math.floor(Math.random() * (max - min +1) + min );
 
-let risultatoRandom = randomNumber(1,100);
+const main = document.querySelector('.container');
+const timeOut = 5;
 
-console.log(risultatoRandom);
+stampaNumeri();
+timerScomparsa();
+
+function stampaNumeri(){
+    
+    for(let i = 1; i <= 5; i++){
+
+        const containerNumero = document.createElement('div');
+        containerNumero.className = 'box';
+        const numero = randomNumber(1,100);
+        containerNumero.append(numero);
+        main.append(containerNumero)
+    };
+}
+
+function timerScomparsa(){
+
+    setTimeout(function(){
+        main.classList.add('hide');
+        sceltaUtente();
+    },timeOut * 1000 )
+}
+
+function sceltaUtente(){
+    for( let i = 0; i < 5; i++){
+        parseInt(prompt('Inserisci i numeri'))
+    }
+}
