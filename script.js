@@ -14,21 +14,34 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 - confrontare quali e quanti sono stati indovinati
 */ 
 
+
 const randomNumber = (min, max) =>  Math.floor(Math.random() * (max - min +1) + min );
+const promptUtente = () => parseInt(prompt('Inserisci i numeri'));
 
 const main = document.querySelector('.container');
 const timeOut = 5;
-const promptUtente = () => parseInt(prompt('Inserisci i numeri'));
 const listaNumeriRandom = [];
 const sceltaNumeriUtente = [];
 const numeriIndovinati = [];
+const playGame = document.querySelector('button');
+/* const resetGame = document.getElementById('reset'); */
+const titolo = document.querySelector('h1');
+playGame.addEventListener('click',startGame);
+/* resetGame.addEventListener('click',reset); */
 
-stampaNumeri();
-timerScomparsa();
-console.log(listaNumeriRandom);
-console.log(sceltaNumeriUtente);
 
 
+
+function startGame(){
+    
+    playGame.classList.add('hide');
+    titolo.classList.add('hide');
+    stampaNumeri();
+    timerScomparsa();
+    console.log(listaNumeriRandom);
+    console.log(sceltaNumeriUtente);
+
+}
 
 function stampaNumeri(){
     
@@ -54,22 +67,28 @@ function timerScomparsa(){
 
 
 function sceltaUtente(){
+
+    const outputStr = document.getElementById('output');
     for( let i = 0; i < listaNumeriRandom.length; i++){
        const scelta = promptUtente();
        sceltaNumeriUtente.push(scelta);
-       if(sceltaNumeriUtente[i] === listaNumeriRandom[i]){
-        console.log('ciao');
-        numeriIndovinati.push(sceltaNumeriUtente[i])
-    }else{
-        console.log('no bravo');
+       if(isNaN(scelta)){
+           alert('Inserisci un numero')
+       }
+       if(sceltaNumeriUtente[i] === listaNumeriRandom[i]){;
+        numeriIndovinati.push(sceltaNumeriUtente[i]);
+        }
     }
-    }    
+
+    outputStr.append(`Hai indovinato ${numeriIndovinati.length} numeri, che sono "${numeriIndovinati}"`);
+    /* const reset = document.getElementById('reset');
+    reset.classList.remove('hide'); */
     console.log(sceltaNumeriUtente);
     console.log(numeriIndovinati);
-    const outputStr = document.getElementById('output');
-    outputStr.innerHTML = `Hai indovinato ${numeriIndovinati.length} numeri, che sono ${numeriIndovinati}`;
-    console.log(outputStr);
-
-    
 }
 
+/* function reset(){
+    
+    startGame();
+
+} */
